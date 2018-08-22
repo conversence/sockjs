@@ -39,7 +39,7 @@ class Session(object):
     exception = None
 
     def __init__(
-        self, id, handler, request, *, timeout=timedelta(seconds=10), debug=False
+        self, id, handler, request, *, timeout=timedelta(seconds=40), debug=False
     ):
         self.id = id
         self.handler = handler
@@ -259,7 +259,7 @@ class SessionManager(dict):
         app,
         handler,
         heartbeat=25.0,
-        timeout=timedelta(seconds=5),
+        timeout=timedelta(seconds=40),
         debug=False,
     ):
         self.name = name

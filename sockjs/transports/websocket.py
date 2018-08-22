@@ -6,7 +6,7 @@ from asyncio import ensure_future
 
 from .base import Transport
 from ..exceptions import SessionIsClosed
-from ..protocol import STATE_CLOSED, FRAME_CLOSE
+from ..protocol import STATE_CLOSED, FRAME_CLOSE, FRAME_HEARTBEAT
 from ..protocol import loads, close_frame
 
 
@@ -26,6 +26,8 @@ class WebSocketTransport(Transport):
                     await ws.close()
                 finally:
                     await session._remote_closed()
+            elif frame == FRAME_HEARTBEAT:
+                session._tick()
 
     async def client(self, ws, session):
         while True:
